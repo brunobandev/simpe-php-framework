@@ -1,0 +1,24 @@
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile.development
+    volumes:
+      - .:/var/www/html
+    ports:
+      - 8081:80
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mymvc
+      MYSQL_USER: user
+      MYSQL_PASSWORD: secret
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    ports:
+      - 33060:3306
+volumes:
+  mysql_data:
